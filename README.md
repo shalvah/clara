@@ -1,5 +1,7 @@
 # reporter
 
+![image](http://img.shields.io/packagist/v/shalvah/reporter.svg?style=flat) [![Total Downloads](https://poser.pugx.org/shalvah/reporter/downloads)](https://packagist.org/packages/shalvah/reporter)
+
 Simple console output for PHP CLI apps.
 
 ![Output on Windows Terminal](./screenshot-windows-teminal.png)
