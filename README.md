@@ -43,3 +43,7 @@ Some environments (example: Windows console) don't have proper support for Unico
 
 ![Output on Windows Cmder](./screenshot-cmder.png)
 
+
+## Todo
+- Output tag (allow for specific mutes)
+- Capture output for assertions
