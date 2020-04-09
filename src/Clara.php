@@ -10,47 +10,87 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class Clara
 {
     public static $CLARA_ON = true;
+    
+    /**
+     * @var string
+     */
+    protected $name;
+    /**
+     * @var bool
+     */
+    private $on;
+    /**
+     * @var array
+     */
+    public $captures;
 
-    public static function success($output)
+    public function __construct(string $name)
     {
-        return static::output("👍 success <info>$output </info>");
+        $this->name = $name;
+        $this->on = true;
+        $this->captures = [];
     }
 
-    public static function info($output)
+    public static function app(string $name)
     {
-        return static::output("<info>🔊 info</info> {$output}");
+        return new static($name);
+    }
+    
+    public function success($text)
+    {
+        return $this->line("👍 success <info>$text </info>");
     }
 
-    public static function debug($output)
+    public function info($text)
     {
-        return static::output("<fg=blue>🐛 debug</> {$output}");
+        return $this->line("<info>🔊 info</info> {$text}");
     }
 
-    public static function warn($output)
+    public function debug($text)
     {
-        return static::output("<fg=yellow>🚸 warning</> {$output}");
+        return $this->line("<fg=blue>🐛 debug</> {$text}");
     }
 
-    public static function error($output)
+    public function warn($text)
     {
-        return static::output("<fg=red>🚫 error</> {$output}");
+        return $this->line("<fg=yellow>🚸 warning</> {$text}");
+    }
+
+    public function error($text)
+    {
+        return $this->line("<fg=red>🚫 error</> {$text}");
     }
 
     /**
      * Output the given text to the console.
      */
-    public static function output($output = "")
+    public function line($text = "")
     {
-        static::$CLARA_ON && (new ConsoleOutput)->writeln($output);
-        return $output;
+        if (static::$CLARA_ON && $this->on) {
+            (new ConsoleOutput)->writeln($text);
+        } else {
+            $this->captures[] = $text;
+        }
+        return $text;
     }
 
-    public static function mute()
+    public function mute()
+    {
+        $this->on = false;
+        $this->captures = [];
+    }
+
+    public function unmute()
+    {
+        $this->on = true;
+    }
+
+    public static function muteGlobal()
     {
         static::$CLARA_ON = false;
     }
 
-    public static function unmute()
+    public static function unmuteGlobal()
     {
         static::$CLARA_ON = true;
     }
