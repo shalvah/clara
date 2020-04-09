@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
  */
 class Clara
 {
-    public static $CLARA_ON = false;
+    public static $CLARA_ON = true;
 
     public static function success($output)
     {
@@ -28,7 +28,7 @@ class Clara
 
     public static function warn($output)
     {
-        return static::output("<fg=yellow>⚠ warning</> {$output}");
+        return static::output("<fg=yellow>🚸 warning</> {$output}");
     }
 
     public static function error($output)
