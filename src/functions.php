@@ -34,10 +34,10 @@ function error($output)
 /**
  * Output the given text to the console.
  */
-function output(string $output = ""): void
+function output(string $output = "")
 {
     if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] == 'testing') {
-        return;
+        return $output;
     }
     (new ConsoleOutput)->writeln($output);
 }
