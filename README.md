@@ -4,11 +4,11 @@
 
 Simple, pretty console output for PHP CLI apps.
 
-<p align="center" markdown>
+<p align="center">
 
-![Output on macOS](./screenshot-mac.png)
+<img alt="Output on macOS" src="./screenshot-mac.png">
 
-![Output on Windows Terminal](./screenshot-windows-teminal.png)
+<img alt="Output on Windows Terminal" src="./screenshot-windows-teminal.png" >
 
 </p>
 
