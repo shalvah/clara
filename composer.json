@@ -1,0 +1,21 @@
+{
+  "name": "shalvah/clog",
+  "description": "Simple console logging for CLI apps.",
+  "keywords": [
+    "log",
+    "logging",
+    "cli",
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Shalvah\\Clog\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  }
+}
