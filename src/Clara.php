@@ -3,39 +3,44 @@
 namespace Shalvah\Clara;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * See https://symfony.com/doc/current/console/coloring.html
  */
 class Clara
 {
-    public static $CLARA_ON = true;
-    
+    /**
+     * @var string[]
+     */
+    private static $mutedAppsList = [];
+
+    /**
+     * @var bool
+     */
+    private static $isMutedGlobally = false;
+
     /**
      * @var string
      */
     protected $name;
-    /**
-     * @var bool
-     */
-    private $on;
-    /**
-     * @var array
-     */
-    public $captures;
 
-    public function __construct(string $name)
+    /**
+     * @var OutputInterface
+     */
+    protected $outputInterface;
+
+    public function __construct(string $name, OutputInterface $outputInterface = null)
     {
         $this->name = $name;
-        $this->on = true;
-        $this->captures = [];
+        $this->outputInterface = $outputInterface ?: new ConsoleOutput;
     }
 
     public static function app(string $name)
     {
         return new static($name);
     }
-    
+
     public function success($text)
     {
         return $this->line("👍 success <info>$text </info>");
@@ -66,33 +71,49 @@ class Clara
      */
     public function line($text = "")
     {
-        if (static::$CLARA_ON && $this->on) {
-            (new ConsoleOutput)->writeln($text);
-        } else {
-            $this->captures[] = $text;
+        if (static::$isMutedGlobally) {
+            return $text;
         }
+
+        if (array_search($this->name, static::$mutedAppsList) !== false) {
+            return $text;
+        }
+
+        $this->outputInterface->writeln($text);
         return $text;
     }
 
-    public function mute()
+    public static function mute(string $app = null)
     {
-        $this->on = false;
-        $this->captures = [];
+        if (empty($app)) {
+            // Mute all apps
+            static::$isMutedGlobally = true;
+        } else {
+            // Add specified apps to mute list
+            static::$mutedAppsList[] = $app;
+        }
     }
 
-    public function unmute()
+    public static function unmute(string $app =null)
     {
-        $this->on = true;
+        if (empty($app)) {
+            // Unmute all apps
+            static::$isMutedGlobally = false;
+            static::$mutedAppsList = [];
+        } else {
+            $appIndexes = array_keys(static::$mutedAppsList, $app);
+            if (!empty($appIndexes)) {
+                foreach ($appIndexes as $index) {
+                    array_splice(static::$mutedAppsList, $index, 1);
+                }
+            }
+        }
     }
 
-    public static function muteGlobal()
+    public static function reset()
     {
-        static::$CLARA_ON = false;
-    }
-
-    public static function unmuteGlobal()
-    {
-        static::$CLARA_ON = true;
+        static::$isMutedGlobally = false;
+        static::$mutedAppsList = [];
     }
 
 }
