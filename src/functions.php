@@ -13,7 +13,7 @@ function success($output)
 
 function info($output)
 {
-    output("<info>📝 info</info> {$output}");
+    output("<info>🔊 info</info> {$output}");
 }
 
 function debug($output)
@@ -28,7 +28,7 @@ function warn($output)
 
 function error($output)
 {
-    output("<error>🚫 error</error> {$output}");
+    output("<fg=red>🚫 error</> {$output}");
 }
 
 /**
