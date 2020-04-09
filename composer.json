@@ -1,5 +1,5 @@
 {
-  "name": "shalvah/reporter",
+  "name": "shalvah/clara",
   "description": "Simple console logging for CLI apps.",
   "keywords": [
     "log",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Shalvah\\Reporter\\": "src"
+      "Shalvah\\Clara\\": "src"
     }
   },
   "require": {

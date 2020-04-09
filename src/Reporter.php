@@ -1,15 +1,15 @@
 <?php
 
-namespace Shalvah\Reporter;
+namespace Shalvah\Clara;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * See https://symfony.com/doc/current/console/coloring.html
  */
-class Reporter
+class Clara
 {
-    public static $REPORTER_ON = false;
+    public static $CLARA_ON = false;
 
     public static function success($output)
     {
@@ -41,18 +41,18 @@ class Reporter
      */
     public static function output($output = "")
     {
-        static::$REPORTER_ON && (new ConsoleOutput)->writeln($output);
+        static::$CLARA_ON && (new ConsoleOutput)->writeln($output);
         return $output;
     }
 
     public static function mute()
     {
-        static::$REPORTER_ON = false;
+        static::$CLARA_ON = false;
     }
 
     public static function unmute()
     {
-        static::$REPORTER_ON = true;
+        static::$CLARA_ON = true;
     }
 
 }
