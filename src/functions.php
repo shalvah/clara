@@ -8,27 +8,27 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 function success($output)
 {
-    output("👍 success <info>$output </info>");
+    return output("👍 success <info>$output </info>");
 }
 
 function info($output)
 {
-    output("<info>🔊 info</info> {$output}");
+    return output("<info>🔊 info</info> {$output}");
 }
 
 function debug($output)
 {
-    output("<fg=blue>🐛 debug</> {$output}");
+    return output("<fg=blue>🐛 debug</> {$output}");
 }
 
 function warn($output)
 {
-    output("<bg=yellow>⚠ warning</> {$output}");
+    return output("<bg=yellow>⚠ warning</> {$output}");
 }
 
 function error($output)
 {
-    output("<fg=red>🚫 error</> {$output}");
+    return output("<fg=red>🚫 error</> {$output}");
 }
 
 /**
@@ -39,5 +39,5 @@ function output(string $output = "")
     if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] == 'testing') {
         return $output;
     }
-    (new ConsoleOutput)->writeln($output);
+    return (new ConsoleOutput)->writeln($output);
 }
