@@ -36,8 +36,6 @@ function error($output)
  */
 function output(string $output = "")
 {
-    if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] == 'testing') {
-        return $output;
-    }
-    return (new ConsoleOutput)->writeln($output);
+    (new ConsoleOutput)->writeln($output);
+    return $output;
 }
