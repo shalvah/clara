@@ -4,6 +4,8 @@
 
 Simple, pretty console output for PHP CLI apps.
 
+![Output on macOS](./screenshot-mac.png)
+
 ![Output on Windows Terminal](./screenshot-windows-teminal.png)
 
 ## Installation
