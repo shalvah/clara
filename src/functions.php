@@ -34,7 +34,7 @@ function error($output)
 /**
  * Output the given text to the console.
  */
-function output(string $output = "")
+function output($output = "")
 {
     (new ConsoleOutput)->writeln($output);
     return $output;
