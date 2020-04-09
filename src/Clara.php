@@ -28,7 +28,7 @@ class Clara
 
     public static function warn($output)
     {
-        return static::output("<bg=yellow>⚠ warning</> {$output}");
+        return static::output("<fg=yellow>⚠ warning</> {$output}");
     }
 
     public static function error($output)
