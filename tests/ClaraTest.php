@@ -16,6 +16,14 @@ class ClaraTest extends TestCase
         Clara::reset();
     }
 
+    public function test_helper_works()
+    {
+        $app1 = clara('app1');
+        $app1->line("App 1 - Output 1");
+
+        $this->assertInstanceOf(Clara::class, $app1);
+    }
+
     public function test_mute_without_args_mutes_all()
     {
         $handle = Phony::mock(NullOutput::class);

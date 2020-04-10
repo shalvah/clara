@@ -21,11 +21,7 @@ composer require shalvah/clara
 
 ## Using Clara in a CLI app
 ```php
-<?php
-
-use Shalvah\Clara\Clara;
-
-$output = Clara::app('myappname');
+$output = clara('myappname');
 
 $output->info("Installing package");
 $output->debug("Attempt 3 of 5");
@@ -46,7 +42,7 @@ $isVerbose = $this->getFlag('v');
 
 // If $isVerbose is true,// 
 // Clara won't print or capture any debug logs
-$app1 = Clara::app('app1', $isVerbose); 
+$app1 = clara('app1', $isVerbose); 
 $app1->debug("App 1 - Output 1");
 
 // You can also toggle debug output manually at any time
@@ -57,7 +53,7 @@ $app1->hideDebugOutput();
 $app1->debug("App 1 - Output 3");
 ```
 
-Note that by default (if you do not pass a second parameter to `Clara::app()` or call the toggle methods), Clara will show all output.
+Note that by default (if you do not pass a second parameter to `clara()` or call the toggle methods), Clara will show all output.
 
 ## Testing a CLI app
 Clara provides some utilities to help you test your CLI apps' output, or turn it off when you don't need it.
@@ -66,8 +62,8 @@ Clara provides some utilities to help you test your CLI apps' output, or turn it
 Sometimes when running your app's tests, you don't want to clutter your console with the output messages. You can turn off Clara's output by using the `mute()` and `unmute` static methods. To mute or unmute a specific app, pass in the app name.
 
 ```php
-$output1 = Clara::app('myapp1');
-$output2 = Clara::app('myapp2');
+$output1 = clara('myapp1');
+$output2 = clara('myapp2');
 
 Clara::mute('myapp1'); // Mute only output from "myapp1"
 // Won't be printed.
@@ -85,7 +81,7 @@ Sometimes you need to assert that your app printed what you expect. An easy way 
 
 ```php
 Clara::startCapturingOutput('myapp1'); // Clara will start capturing output from myapp1
-$output1 = Clara::app('myapp1');
+$output1 = clara('myapp1');
 $output1->warn("Going to fail");
 $output1->error("Failed");
 

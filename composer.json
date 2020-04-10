@@ -10,7 +10,10 @@
   "autoload": {
     "psr-4": {
       "Shalvah\\Clara\\": "src/"
-    }
+    },
+    "files": [
+      "helpers.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
