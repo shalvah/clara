@@ -44,16 +44,34 @@ class Clara
      * @var OutputInterface
      */
     protected $outputInterface;
+    
+    /**
+     * @var bool
+     */
+    protected $showDebugOutput = true;
 
     public function __construct(string $name, OutputInterface $outputInterface = null)
     {
         $this->name = $name;
         $this->outputInterface = $outputInterface ?: new ConsoleOutput;
     }
-
-    public static function app(string $name)
+    
+    public function showDebugOutput()
     {
-        return new static($name);
+        $this->showDebugOutput = true;
+        return $this;
+    }
+
+    public function hideDebugOutput()
+    {
+        $this->showDebugOutput = false;
+        return $this;
+    }
+
+    public static function app(string $name, $showDebugOutput = false)
+    {
+        $output = new static($name);
+        return $showDebugOutput ? $output->showDebugOutput() : $output->hideDebugOutput();
     }
 
     public function success($text)
@@ -68,7 +86,7 @@ class Clara
 
     public function debug($text)
     {
-        return $this->line("<fg=blue>🐛 debug</> {$text}");
+        return $this->showDebugOutput && $this->line("<fg=blue>🐛 debug</> {$text}");
     }
 
     public function warn($text)
