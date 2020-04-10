@@ -21,6 +21,21 @@ class Clara
     private static $isMutedGlobally = false;
 
     /**
+     * @var array
+     */
+    private static $capturedOutput = [];
+
+    /**
+     * @var array
+     */
+    private static $globalMuteExceptions = [];
+
+    /**
+     * @var string[]
+     */
+    private static $appsBeingCaptured = [];
+
+    /**
      * @var string
      */
     protected $name;
@@ -71,11 +86,11 @@ class Clara
      */
     public function line($text = "")
     {
-        if (static::$isMutedGlobally) {
-            return $text;
+        if (static::isCapturing($this->name)) {
+            static::capture($this->name, $text);
         }
 
-        if (array_search($this->name, static::$mutedAppsList) !== false) {
+        if (static::isMuted($this->name)) {
             return $text;
         }
 
@@ -88,32 +103,78 @@ class Clara
         if (empty($app)) {
             // Mute all apps
             static::$isMutedGlobally = true;
+            static::$globalMuteExceptions = [];
         } else {
             // Add specified apps to mute list
-            static::$mutedAppsList[] = $app;
+            static::$mutedAppsList[$app] = true;
+            unset(static::$globalMuteExceptions[$app]);
         }
     }
 
-    public static function unmute(string $app =null)
+    public static function unmute(string $app = null)
     {
         if (empty($app)) {
             // Unmute all apps
             static::$isMutedGlobally = false;
             static::$mutedAppsList = [];
+            static::$globalMuteExceptions = [];
         } else {
-            $appIndexes = array_keys(static::$mutedAppsList, $app);
-            if (!empty($appIndexes)) {
-                foreach ($appIndexes as $index) {
-                    array_splice(static::$mutedAppsList, $index, 1);
-                }
-            }
+            unset(static::$mutedAppsList[$app]);
+            static::$globalMuteExceptions[$app] = true;
         }
+    }
+
+    protected static function isMuted(string $app)
+    {
+
+        if (static::$isMutedGlobally && !isset(static::$globalMuteExceptions[$app])) {
+            return true;
+        }
+
+        return !empty(static::$mutedAppsList[$app]);
+    }
+
+    public static function startCapturingOutput(string $app)
+    {
+        // Using a hash key rather than list entry to take care of duplicate calls
+        static::$appsBeingCaptured[$app] = true;
+        static::$appsBeingCaptured[$app] = static::$capturedOutput[$app] ?? [];
+    }
+
+    public static function stopCapturingOutput(string $app)
+    {
+        if (static::isCapturing($app)) {
+            unset(static::$appsBeingCaptured[$app]);
+        }
+    }
+
+    public static function clearCapturedOutput(string $app)
+    {
+        static::$capturedOutput[$app] = [];
+    }
+
+    public static function getCapturedOutput(string $app)
+    {
+        return static::$capturedOutput[$app] ?? [];
+    }
+
+    protected static function isCapturing(string $app)
+    {
+        return isset(static::$appsBeingCaptured[$app]);
+    }
+
+    protected static function capture(string $app, $text)
+    {
+        return static::$capturedOutput[$app][] = $text;
     }
 
     public static function reset()
     {
         static::$isMutedGlobally = false;
         static::$mutedAppsList = [];
+        static::$globalMuteExceptions = [];
+        static::$appsBeingCaptured = [];
+        static::$capturedOutput = [];
     }
 
 }
