@@ -4,22 +4,22 @@ require 'vendor/autoload.php';
 
 use Shalvah\Clara\Clara;
 
-Clara::info("Installing package");
-Clara::debug("Attempt 3 of 5");
-Clara::warn("The file does not exist.");
-Clara::error("Something went wrong!");
-Clara::success("Done. Go and be awesome.");
+Clara::app('app1')->info("Installing package");
+Clara::app('app1')->debug("Attempt 3 of 5");
+Clara::app('app1')->warn("The file does not exist.");
+Clara::app('app1')->error("Something went wrong!");
+Clara::app('app1')->success("Done. Go and be awesome.");
 
 Clara::mute();
-Clara::info("Muted: Installing package");
-Clara::debug("Muted: Attempt 3 of 5");
-Clara::warn("Muted: The file does not exist.");
-Clara::error("Muted: Something went wrong!");
-Clara::success("Muted: Done. Go and be awesome.");
+$output->info("Muted: Installing package");
+$output->debug("Muted: Attempt 3 of 5");
+$output->warn("Muted: The file does not exist.");
+$output->error("Muted: Something went wrong!");
+$output->success("Muted: Done. Go and be awesome.");
 
-Clara::unmute();
-Clara::info("Unmuted: Installing package");
-Clara::debug("Unmuted: Attempt 3 of 5");
-Clara::warn("Unmuted: The file does not exist.");
-Clara::error("Unmuted: Something went wrong!");
-Clara::success("Unmuted: Done. Go and be awesome.");
+$output->unmute();
+$output->info("Unmuted: Installing package");
+$output->debug("Unmuted: Attempt 3 of 5");
+$output->warn("Unmuted: The file does not exist.");
+$output->error("Unmuted: Something went wrong!");
+$output->success("Unmuted: Done. Go and be awesome.");

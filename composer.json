@@ -9,12 +9,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Shalvah\\Clara\\": "src"
+      "Shalvah\\Clara\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Shalvah\\Clara\\Tests\\": "tests"
+      "Shalvah\\Clara\\Tests\\": "tests/"
     }
   },
   "require": {
