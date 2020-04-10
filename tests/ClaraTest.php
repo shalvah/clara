@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\NullOutput;
 class ClaraTest extends TestCase
 {
 
-    protected function tearDown(): void
+    protected function setUp(): void
     {
         Clara::reset();
     }
@@ -99,5 +99,62 @@ class ClaraTest extends TestCase
 
         $handle->writeln->once()->called();
         $handle->writeln->lastCall()->calledWith("App 2 - Output 2");
+    }
+
+    public function test_captures_output_when_start_is_called()
+    {
+        $nullOutput = new NullOutput;
+        $app1 = new Clara('app1', $nullOutput);
+        $app2 = new Clara('app2', $nullOutput);
+
+        $app1->line("App 1 - Output 1");
+        $captured1 = Clara::getCapturedOutput('app1');
+        $this->assertEmpty($captured1);
+
+        Clara::startCapturingOutput('app1');
+        $app1->line("App 1 - Output 2");
+        $app1->line("App 1 - Output 3");
+        $app2->line("App 2 - Output 1");
+        $captured1 = Clara::getCapturedOutput('app1');
+        $this->assertEquals(2, count($captured1));
+        $this->assertEquals("App 1 - Output 2", $captured1[0]);
+        $this->assertEquals("App 1 - Output 3", $captured1[1]);
+    }
+
+    public function test_stops_capturing_output_when_stop_is_called()
+    {
+        $nullOutput = new NullOutput;
+        $app1 = new Clara('app1', $nullOutput);
+
+        Clara::startCapturingOutput('app1');
+        $app1->line("App 1 - Output 1");
+        $captured1 = Clara::getCapturedOutput('app1');
+        $this->assertEquals(1, count($captured1));
+        $this->assertEquals("App 1 - Output 1", $captured1[0]);
+
+        Clara::stopCapturingOutput('app1');
+        $app1->line("App 1 - Output 2");
+
+        $captured1 = Clara::getCapturedOutput('app1');
+        $this->assertEquals(1, count($captured1));
+        $this->assertEquals("App 1 - Output 1", $captured1[0]);
+    }
+    public function test_does_not_clear_captured_output_until_clear_is_called()
+    {
+        $nullOutput = new NullOutput;
+        $app1 = new Clara('app1', $nullOutput);
+
+        Clara::startCapturingOutput('app1');
+        $app1->line("App 1 - Output 1");
+        $app1->line("App 1 - Output 2");
+        $captured1 = Clara::getCapturedOutput('app1');
+
+        $this->assertEquals(2, count($captured1));
+        $this->assertEquals("App 1 - Output 1", $captured1[0]);
+        $this->assertEquals("App 1 - Output 2", $captured1[1]);
+
+        Clara::clearCapturedOutput("app1");
+        $captured1 = Clara::getCapturedOutput('app1');
+        $this->assertEmpty($captured1);
     }
 }
