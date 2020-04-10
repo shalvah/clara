@@ -139,6 +139,7 @@ class ClaraTest extends TestCase
         $this->assertEquals(1, count($captured1));
         $this->assertEquals("App 1 - Output 1", $captured1[0]);
     }
+
     public function test_does_not_clear_captured_output_until_clear_is_called()
     {
         $nullOutput = new NullOutput;
@@ -156,5 +157,24 @@ class ClaraTest extends TestCase
         Clara::clearCapturedOutput("app1");
         $captured1 = Clara::getCapturedOutput('app1');
         $this->assertEmpty($captured1);
+    }
+
+    public function test_allows_user_turn_off_showing_debug_output()
+    {
+        $handle = Phony::mock(NullOutput::class);
+        $nullOutput = $handle->get();
+        $app1 = new Clara('app1', $nullOutput);
+
+        $app1->debug("App 1 - Output 1");
+
+        $app1->hideDebugOutput();
+        $app1->debug("App 1 - Output 2");
+
+        $app1->showDebugOutput();
+        $app1->debug("App 1 - Output 3");
+
+        $handle->writeln->twice()->called();
+        $handle->writeln->firstCall()->calledWith("<fg=blue>🐛 debug</> App 1 - Output 1");
+        $handle->writeln->lastCall()->calledWith("<fg=blue>🐛 debug</> App 1 - Output 3");
     }
 }
