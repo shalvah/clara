@@ -19,7 +19,7 @@ Simple, pretty, testable console output for PHP CLI apps.
 composer require shalvah/clara
 ```
 
-## Using Clara in a CLI app
+## Using Clara
 ```php
 $output = clara('myappname');
 
@@ -34,7 +34,7 @@ The output will be coloured and presented as in the screenshot shown above.
 
 If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `$output->line()` method instead.
 
-### Toggling debug output
+## Toggling debug output
 It's conventional to include a verbose flag (`-v`) in your CLI app that lets you show additional (debug) output to the user. You could then check for the value of the flag in an if-statement before outputting any debug logs. Clara makes this easier by letting you choose whether debug logs are on or not:
 
 ```php
@@ -55,10 +55,7 @@ $app1->debug("App 1 - Output 3");
 
 Note that by default (if you do not pass a second parameter to `clara()` or call the toggle methods), Clara will show all output.
 
-## Testing a CLI app
-Clara provides some utilities to help you test your CLI apps' output, or turn it off when you don't need it.
-
-### Muting output
+## Muting output
 Sometimes when running your app's tests, you don't want to clutter your console with the output messages. You can turn off Clara's output by using the `mute()` and `unmute` static methods. To mute or unmute a specific app, pass in the app name.
 
 ```php
@@ -76,6 +73,15 @@ Clara::mute(); // Mute all apps
 Clara::unmute("myapp1"); // Unmute myapp1
 Clara::unmute(); // Unmute all apps
 ```
+
+## Showing only your app's output. 
+Imagine your app includes another app that uses Clara. By default, the output from all apps would be shown. You can turn off output for all apps but yours by calling `Clara::only('yourappname')`; This is equivalent to doing:
+
+```php
+Clara::mute();
+Clara::unmute('yourappname');
+```
+
 ### Capturing the output
 Sometimes you need to assert that your app printed what you expect. An easy way is to use output capturing.
 

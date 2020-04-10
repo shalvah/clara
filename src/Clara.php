@@ -142,6 +142,15 @@ class Clara
         }
     }
 
+    /**
+     * Mute output from all apps but this one
+     */
+    public static function only(string $app)
+    {
+        static::mute();
+        static::unmute($app);
+    }
+
     protected static function isMuted(string $app)
     {
 

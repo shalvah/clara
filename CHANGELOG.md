@@ -13,9 +13,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
+## 2.4.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.3.0...2.4.0))
+### Added
+- `Clara::only` helper (https://github.com/shalvah/clara/commit/a1c68707e414a502b550c94336ec49f207c5f439)
+
 ## 2.3.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.2.0...2.3.0))
 ### Added
-- Global function helper (https://github.com/shalvah/clara/pull/1)
+- Global function helper (https://github.com/shalvah/clara/commit/a1c68707e414a502b550c94336ec49f207c5f439)
 
 ## 2.2.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.1.0...2.2.0))
 Dependency update
