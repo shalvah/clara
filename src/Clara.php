@@ -156,7 +156,7 @@ class Clara
     {
         // Using a hash key rather than list entry to take care of duplicate calls
         static::$appsBeingCaptured[$app] = true;
-        static::$appsBeingCaptured[$app] = static::$capturedOutput[$app] ?? [];
+        static::$capturedOutput[$app] = static::$capturedOutput[$app] ?? [];
     }
 
     public static function stopCapturingOutput(string $app)
