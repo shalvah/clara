@@ -27,6 +27,6 @@
   },
   "scripts": {
     "test": "phpunit tests --stop-on-failure",
-    "test-ci": "phpunit tests"
+    "test-ci": "vendor/bin/phpunit tests"
   }
 }
