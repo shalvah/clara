@@ -13,5 +13,11 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
-## 1.0.0 - Wednesday, 8 April 2020 ([compare to previous](https://github.com/mpociot/laravel-apidoc-generator/compare/0.1.0...1.0.0))
+## 2.0.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/1.0.0...2.0.0))
 ### Modified
+- Switched to granular output per app (https://github.com/shalvah/clara/pull/1)
+
+### Added
+- Muting output per app (https://github.com/shalvah/clara/pull/1)
+- Output capturing (https://github.com/shalvah/clara/pull/2)
+- Toggling debug utput (https://github.com/shalvah/clara/pull/3)
