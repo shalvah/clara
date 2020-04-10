@@ -1,6 +1,6 @@
 {
   "name": "shalvah/clara",
-  "description": "🔊 Simple, pretty console output for CLI apps.",
+  "description": "🔊 Simple, pretty, testable console output for CLI apps.",
   "keywords": [
     "log",
     "logging",
@@ -22,7 +22,8 @@
     "symfony/console": "^5.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.1"
+    "phpunit/phpunit": "^9.1",
+    "eloquent/phony-phpunit": "^7.0"
   },
   "scripts": {
     "test": "phpunit tests --stop-on-failure",
