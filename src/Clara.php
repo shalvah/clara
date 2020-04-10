@@ -3,56 +3,117 @@
 namespace Shalvah\Clara;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * See https://symfony.com/doc/current/console/coloring.html
  */
 class Clara
 {
-    public static $CLARA_ON = true;
+    /**
+     * @var string[]
+     */
+    private static $mutedAppsList = [];
 
-    public static function success($output)
+    /**
+     * @var bool
+     */
+    private static $isMutedGlobally = false;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var OutputInterface
+     */
+    protected $outputInterface;
+
+    public function __construct(string $name, OutputInterface $outputInterface = null)
     {
-        return static::output("👍 success <info>$output </info>");
+        $this->name = $name;
+        $this->outputInterface = $outputInterface ?: new ConsoleOutput;
     }
 
-    public static function info($output)
+    public static function app(string $name)
     {
-        return static::output("<info>🔊 info</info> {$output}");
+        return new static($name);
     }
 
-    public static function debug($output)
+    public function success($text)
     {
-        return static::output("<fg=blue>🐛 debug</> {$output}");
+        return $this->line("👍 success <info>$text </info>");
     }
 
-    public static function warn($output)
+    public function info($text)
     {
-        return static::output("<fg=yellow>🚸 warning</> {$output}");
+        return $this->line("<info>🔊 info</info> {$text}");
     }
 
-    public static function error($output)
+    public function debug($text)
     {
-        return static::output("<fg=red>🚫 error</> {$output}");
+        return $this->line("<fg=blue>🐛 debug</> {$text}");
+    }
+
+    public function warn($text)
+    {
+        return $this->line("<fg=yellow>🚸 warning</> {$text}");
+    }
+
+    public function error($text)
+    {
+        return $this->line("<fg=red>🚫 error</> {$text}");
     }
 
     /**
      * Output the given text to the console.
      */
-    public static function output($output = "")
+    public function line($text = "")
     {
-        static::$CLARA_ON && (new ConsoleOutput)->writeln($output);
-        return $output;
+        if (static::$isMutedGlobally) {
+            return $text;
+        }
+
+        if (array_search($this->name, static::$mutedAppsList) !== false) {
+            return $text;
+        }
+
+        $this->outputInterface->writeln($text);
+        return $text;
     }
 
-    public static function mute()
+    public static function mute(string $app = null)
     {
-        static::$CLARA_ON = false;
+        if (empty($app)) {
+            // Mute all apps
+            static::$isMutedGlobally = true;
+        } else {
+            // Add specified apps to mute list
+            static::$mutedAppsList[] = $app;
+        }
     }
 
-    public static function unmute()
+    public static function unmute(string $app =null)
     {
-        static::$CLARA_ON = true;
+        if (empty($app)) {
+            // Unmute all apps
+            static::$isMutedGlobally = false;
+            static::$mutedAppsList = [];
+        } else {
+            $appIndexes = array_keys(static::$mutedAppsList, $app);
+            if (!empty($appIndexes)) {
+                foreach ($appIndexes as $index) {
+                    array_splice(static::$mutedAppsList, $index, 1);
+                }
+            }
+        }
+    }
+
+    public static function reset()
+    {
+        static::$isMutedGlobally = false;
+        static::$mutedAppsList = [];
     }
 
 }
