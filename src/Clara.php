@@ -145,10 +145,11 @@ class Clara
     /**
      * Mute output from all apps but this one
      */
-    public static function only(string $app)
+    public function only(): Clara
     {
         static::mute();
-        static::unmute($app);
+        static::unmute($this->name);
+        return $this;
     }
 
     protected static function isMuted(string $app)

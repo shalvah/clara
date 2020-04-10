@@ -75,9 +75,13 @@ Clara::unmute(); // Unmute all apps
 ```
 
 ## Showing only your app's output. 
-Imagine your app includes another app that uses Clara. By default, the output from all apps would be shown. You can turn off output for all apps but yours by calling `Clara::only('yourappname')`; This is equivalent to doing:
+Imagine your app includes another app that uses Clara. By default, the output from all apps would be shown. You can turn off output for all apps but yours by calling `->only()`.
 
 ```php
+// SHow only output from mymainapp
+$output1 = clara('mymainapp')->only();
+
+// This is equivalent to doing:
 Clara::mute();
 Clara::unmute('yourappname');
 ```
