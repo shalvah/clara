@@ -13,9 +13,16 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
-## 2.1.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.0.0...2.1.0))
+## 2.3.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.2.0...2.3.0))
 ### Added
 - Global function helper (https://github.com/shalvah/clara/pull/1)
+
+## 2.2.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.1.0...2.2.0))
+Dependency update
+
+## 2.1.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.0.0...2.1.0))
+### Fixed
+- Internal bug: writing captured output to the wrong array
 
 ## 2.0.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/1.0.0...2.0.0))
 ### Modified
