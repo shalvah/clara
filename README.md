@@ -1,6 +1,6 @@
 # clara 🔊
+[![image](http://img.shields.io/packagist/v/shalvah/clara.svg?style=flat)](https://packagist.org/packages/shalvah/clara) [![Total Downloads](https://poser.pugx.org/shalvah/clara/downloads)](https://packagist.org/packages/shalvah/clara) [![Build Status](https://travis-ci.com/shalvah/clara.svg?branch=master)](https://travis-ci.com/shalvah/clara)
 
-[![image](http://img.shields.io/packagist/v/shalvah/clara.svg?style=flat)](https://packagist.org/packages/shalvah/clara) [![Total Downloads](https://poser.pugx.org/shalvah/clara/downloads)](https://packagist.org/packages/shalvah/clara) [![Build Status](https://travis-ci.org/shalvah/clara.svg?branch=master)](https://travis-ci.org/shalvah/clara)
 
 Simple, pretty, testable console output for PHP CLI apps.
 

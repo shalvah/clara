@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\NullOutput;
 class ClaraTest extends TestCase
 {
 
-    protected function setUp(): void
+    protected function tearDown(): void
     {
         Clara::reset();
     }
