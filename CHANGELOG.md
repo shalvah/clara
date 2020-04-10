@@ -13,6 +13,10 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
+## 2.5.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.4.0...2.5.0))
+### Modified
+- Make `->only()` instance (https://github.com/shalvah/clara/commit/af04fe9a410d10ae92ecf33f51537d6c2333fb7b)
+
 ## 2.4.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.3.0...2.4.0))
 ### Added
 - `Clara::only` helper (https://github.com/shalvah/clara/commit/b117290af2d7574e70a57f5a997c9708d686d6f1)
