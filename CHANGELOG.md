@@ -15,7 +15,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ## 2.4.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.3.0...2.4.0))
 ### Added
-- `Clara::only` helper (https://github.com/shalvah/clara/commit/a1c68707e414a502b550c94336ec49f207c5f439)
+- `Clara::only` helper (https://github.com/shalvah/clara/commit/b117290af2d7574e70a57f5a997c9708d686d6f1)
 
 ## 2.3.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.2.0...2.3.0))
 ### Added
