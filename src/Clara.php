@@ -56,9 +56,9 @@ class Clara
         $this->outputInterface = $outputInterface ?: new ConsoleOutput;
     }
     
-    public function showDebugOutput()
+    public function showDebugOutput($show = true)
     {
-        $this->showDebugOutput = true;
+        $this->showDebugOutput = $show;
         return $this;
     }
 
