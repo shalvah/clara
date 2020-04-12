@@ -13,6 +13,12 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
+## 2.6.0 - Sunday, 12 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.5.0...2.6.0))
+### Added
+- Allow setting output interface (https://github.com/shalvah/clara/commit/6571043fdf3a9029358bab4029fd32c66a6d791c)
+### Modified
+- Switch clara() default showDebugOutput to true (https://github.com/shalvah/clara/commit/2371b83ad6d3ec54551c271504a26a359c02fa25)
+
 ## 2.5.0 - Friday, 10 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.4.0...2.5.0))
 ### Modified
 - Make `->only()` instance (https://github.com/shalvah/clara/commit/af04fe9a410d10ae92ecf33f51537d6c2333fb7b)
