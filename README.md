@@ -108,12 +108,12 @@ Clara::clearCapturedOutput('myapp1'); // Will empty saved output
 You can reset the entire state of Clara to default by calling `Clara::reset()`. This will clear captured output, stop capturing for all apps and unmute all apps.
 
 ## Setting an output channel
-By default, Clara outputs to the console, but you can actually output to somewhere else. This is helpful if you're writing a Laravel Artisan command and want to use Clara for output while still capturing the output via Artisan's `->output()` method. All you need to do is call `useOutput` with an instance of `Symfony\Component\Console\Output\OutputInterface` (for Artisan classes, it's `$this`).
+By default, Clara outputs to the console, but you can actually output to somewhere else. This is helpful if you're writing a Laravel Artisan command and want to use Clara for output while still capturing the output via Artisan's `->output()` method. All you need to do is call `useOutput` with an instance of `Symfony\Component\Console\Output\OutputInterface` (for Artisan classes, it's `$this->output`).
 
 ```php
 
 $this->clara = clara('myapp', $shouldBeVerbose)
-  ->useOutput($this)
+  ->useOutput($this->output)
   ->only();
 ```
  
