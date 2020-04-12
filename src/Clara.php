@@ -50,12 +50,18 @@ class Clara
      */
     protected $showDebugOutput = true;
 
-    public function __construct(string $name, OutputInterface $outputInterface = null)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->outputInterface = $outputInterface ?: new ConsoleOutput;
+        $this->outputInterface = new ConsoleOutput;
     }
     
+    public function useOutput(OutputInterface $outputInterface)
+    {
+        $this->outputInterface = $outputInterface;
+        return $this;
+    }
+
     public function showDebugOutput($show = true)
     {
         $this->showDebugOutput = $show;

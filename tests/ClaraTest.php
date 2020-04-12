@@ -28,8 +28,8 @@ class ClaraTest extends TestCase
     {
         $handle = Phony::mock(NullOutput::class);
         $nullOutput = $handle->get();
-        $app1 = new Clara('app1', $nullOutput);
-        $app2 = new Clara('app2', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
+        $app2 = clara('app2')->useOutput($nullOutput);
 
         $app1->line("App 1 - Output 1");
 
@@ -47,8 +47,8 @@ class ClaraTest extends TestCase
         $handle = Phony::mock(NullOutput::class);
         $nullOutput = $handle->get();
 
-        $app1 = new Clara('app1', $nullOutput);
-        $app2 = new Clara('app2', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
+        $app2 = clara('app2')->useOutput($nullOutput);
 
         $app1->line("App 1 - Output 1");
 
@@ -66,8 +66,8 @@ class ClaraTest extends TestCase
     {
         $handle = Phony::mock(NullOutput::class);
         $nullOutput = $handle->get();
-        $app1 = new Clara('app1', $nullOutput);
-        $app2 = new Clara('app2', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
+        $app2 = clara('app2')->useOutput($nullOutput);
 
         Clara::mute();
         $app1->line("App 1 - Output 1");
@@ -95,8 +95,8 @@ class ClaraTest extends TestCase
     {
         $handle = Phony::mock(NullOutput::class);
         $nullOutput = $handle->get();
-        $app1 = new Clara('app1', $nullOutput);
-        $app2 = new Clara('app2', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
+        $app2 = clara('app2')->useOutput($nullOutput);
 
         Clara::mute();
         $app1->line("App 1 - Output 1");
@@ -113,8 +113,8 @@ class ClaraTest extends TestCase
     public function test_captures_output_when_start_is_called()
     {
         $nullOutput = new NullOutput;
-        $app1 = new Clara('app1', $nullOutput);
-        $app2 = new Clara('app2', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
+        $app2 = clara('app2')->useOutput($nullOutput);
 
         $app1->line("App 1 - Output 1");
         $captured1 = Clara::getCapturedOutput('app1');
@@ -133,7 +133,7 @@ class ClaraTest extends TestCase
     public function test_stops_capturing_output_when_stop_is_called()
     {
         $nullOutput = new NullOutput;
-        $app1 = new Clara('app1', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
 
         Clara::startCapturingOutput('app1');
         $app1->line("App 1 - Output 1");
@@ -152,7 +152,7 @@ class ClaraTest extends TestCase
     public function test_does_not_clear_captured_output_until_clear_is_called()
     {
         $nullOutput = new NullOutput;
-        $app1 = new Clara('app1', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
 
         Clara::startCapturingOutput('app1');
         $app1->line("App 1 - Output 1");
@@ -172,7 +172,7 @@ class ClaraTest extends TestCase
     {
         $handle = Phony::mock(NullOutput::class);
         $nullOutput = $handle->get();
-        $app1 = new Clara('app1', $nullOutput);
+        $app1 = clara('app1')->useOutput($nullOutput);
 
         $app1->debug("App 1 - Output 1");
 
