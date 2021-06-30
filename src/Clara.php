@@ -44,7 +44,7 @@ class Clara
         'debug' => 'magenta',
     ];
 
-    protected array $icons = [
+    protected static array $icons = [
         'info' => 'ⓘ',
         'success' => '✔',
         'warn' => '⚠',
@@ -60,7 +60,7 @@ class Clara
         $this->outputInterface = new ConsoleOutput;
     }
     
-    public function useOutput(OutputInterface $outputInterface): Clara
+    public function useOutput(OutputInterface $outputInterface): self
     {
         $this->outputInterface = $outputInterface;
         return $this;
@@ -85,27 +85,29 @@ class Clara
 
     public function success($text)
     {
-        return $this->line("👍 success <info>$text </info>");
+        return $this->line(sprintf("%s success <info>$text </info>", $this->icon('success')));
     }
 
     public function info($text)
     {
-        return $this->line("<info>🔊 info</info> {$text}");
+        return $this->line(sprintf("<info>%s info</info> {$text}", $this->icon('info')));
     }
 
     public function debug($text)
     {
-        return $this->showDebugOutput && $this->line("<fg=blue>🐛 debug</> {$text}");
+        return $this->showDebugOutput
+            ? $this->line(sprintf("<fg=blue>%s debug</> $text", $this->icon("debug")))
+            : '';
     }
 
     public function warn($text)
     {
-        return $this->line("<fg=yellow>🚸 warning</> {$text}");
+        return $this->line(sprintf("<fg=yellow>%s warning</> $text", $this->icon("warn")));
     }
 
     public function error($text)
     {
-        return $this->line("<fg=red>🚫 error</> {$text}");
+        return $this->line(sprintf("<fg=red>%s error</> $text", $this->icon("error")));
     }
 
     /**
@@ -212,6 +214,11 @@ class Clara
         static::$globalMuteExceptions = [];
         static::$appsBeingCaptured = [];
         static::$capturedOutput = [];
+    }
+
+    protected function icon($type)
+    {
+        return static::$icons[$type];
     }
 
 }
