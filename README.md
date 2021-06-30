@@ -10,17 +10,15 @@ Features:
 - Can capture console output for easy testing—no need for mocks
 - Customizable colour palette
 
-<figure align="center">
+<p align="center">
+
 <img alt="Icons mode" src="./screenshot-icons.png">
-<figcaption>Icons mode</figcaption>
-</figure>
 
-<br>
+<em>Icons mode</em>
 
-<figure align="center">
 <img alt="Labels mode" src="./screenshot-labels.png" >
-<figcaption>Labels mode</figcaption>
-</figure>
+
+<em>Labels mode</em>
 
 </p>
 
@@ -44,9 +42,7 @@ $output->success("Done. Go and be awesome.");
 ```
 
 ### Picking a mode
-By default, Clara uses "icons" mode—the output is coloured differently by output type and an emoji is added (as in the first screenshot above).
-
-If you prefer, you can switch to "labels" mode:
+By default, Clara uses "icons" mode—the output is coloured differently by output type and an emoji is added (as in the first screenshot above). If you prefer, you can switch to "labels" mode:
 
 ```php
 $output = clara('myappname' \Shalvah\Clara::MODE_LABELS);
@@ -59,16 +55,11 @@ In labels mode, (the second screenshot above), the emojis are still present, but
 ### Disabling colours and emojis
 If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `->line()` method instead.
 
-### Disabling colours and emojis
-If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `->line()` method instead.
-
 ### Customising the colour palette
 You can also customise the colours Clara uses for each type, by passing in an array as the third argument, containing your preferred colours:
 
 ```php
-$output = clara('myappname' \Shalvah\Clara::MODE_ICONS, [
-  'info' => 'blue',
-]);
+$output = clara('myappname' \Shalvah\Clara::MODE_ICONS, ['info' => 'blue']);
 ```
 
 See [the Symfony docs](https://symfony.com/doc/current/console/coloring.html) for details about supported colours.
