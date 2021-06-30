@@ -2,6 +2,7 @@
 
 namespace Shalvah\Clara;
 
+use InvalidArgumentException;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,6 +37,9 @@ class Clara
     /** @var string[] */
     protected array $colours;
 
+    public const MODE_ICONS = 'icons';
+    public const MODE_LABELS = 'labels';
+
     protected static array $defaultColours = [
         'info' => 'cyan',
         'success' => 'green',
@@ -52,8 +56,12 @@ class Clara
         'debug' => '⚒',
     ];
 
-    public function __construct(string $name, string $mode = 'labels', array $colours = [])
+    public function __construct(string $name, string $mode = self::MODE_ICONS, array $colours = [])
     {
+        if (!in_array($mode, [self::MODE_ICONS, self::MODE_LABELS])) {
+            throw new InvalidArgumentException("$mode is not a valid mode, must be either 'labels' or 'icons'");
+        }
+
         $this->name = $name;
         $this->mode = $mode;
         $this->colours = empty($colours) ? static::$defaultColours : $colours;
@@ -78,46 +86,51 @@ class Clara
         return $this;
     }
 
-    public static function app(string $name): self
+    public static function app(string $name, string $mode = self::MODE_ICONS, array $colours = []): self
     {
-        return new static($name);
+        return new static($name, $mode, $colours);
+    }
+
+    public function print($text, $type)
+    {
+        $output = '';
+        switch ($this->mode) {
+            case self::MODE_ICONS:
+                $output = $this->formatWithIcon($text, $type);
+                break;
+            case self::MODE_LABELS:
+                $output = $this->formatWithLabel($text, $type);
+                break;
+        }
+
+        return $this->line($output);
     }
 
     public function success($text)
     {
-        return $this->line(
-            sprintf("<fg=%s>%s success</> $text", $this->colour('success'), $this->icon('success'))
-        );
+        return $this->print($text, 'success');
     }
 
     public function info($text)
     {
-        return $this->line(
-            sprintf("<fg=%s>%s info</> $text", $this->colour('info'), $this->icon('info'))
-        );
+        return $this->print($text, 'info');
     }
 
     public function debug($text)
     {
         return $this->showDebugOutput
-            ? $this->line(
-                sprintf("<fg=%s>%s debug</> $text", $this->colour("debug"), $this->icon("debug"))
-            )
+            ? $this->print($text, 'debug')
             : '';
     }
 
     public function warn($text)
     {
-        return $this->line(
-            sprintf("<fg=%s>%s warning</> $text", $this->colour("warn"), $this->icon("warn"))
-        );
+        return $this->print($text, 'warn');
     }
 
     public function error($text)
     {
-        return $this->line(
-            sprintf("<fg=%s>%s error</> $text", $this->colour("error"), $this->icon("error"))
-        );
+        return $this->print($text, 'error');
     }
 
     /**
@@ -234,6 +247,16 @@ class Clara
     protected function colour($type): string
     {
         return $this->colours[$type] ?? static::$defaultColours[$type];
+    }
+
+    protected function formatWithIcon($text, string $type): string
+    {
+        return sprintf("%s <fg=%s>$text</>", $this->icon($type), $this->colour($type));
+    }
+
+    protected function formatWithLabel($text, string $type): string
+    {
+        return sprintf("<fg=%s>%s success</> $text", $this->colour($type), $this->icon($type));
     }
 
 }
