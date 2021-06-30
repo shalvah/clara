@@ -85,29 +85,39 @@ class Clara
 
     public function success($text)
     {
-        return $this->line(sprintf("%s success <info>$text </info>", $this->icon('success')));
+        return $this->line(
+            sprintf("%s success <info>$text </info>", $this->icon('success'))
+        );
     }
 
     public function info($text)
     {
-        return $this->line(sprintf("<info>%s info</info> {$text}", $this->icon('info')));
+        return $this->line(
+            sprintf("<info>%s info</info> {$text}", $this->icon('info'))
+        );
     }
 
     public function debug($text)
     {
         return $this->showDebugOutput
-            ? $this->line(sprintf("<fg=blue>%s debug</> $text", $this->icon("debug")))
+            ? $this->line(
+                sprintf("<fg=blue>%s debug</> $text", $this->icon("debug"))
+            )
             : '';
     }
 
     public function warn($text)
     {
-        return $this->line(sprintf("<fg=yellow>%s warning</> $text", $this->icon("warn")));
+        return $this->line(
+            sprintf("<fg=yellow>%s warning</> $text", $this->icon("warn"))
+        );
     }
 
     public function error($text)
     {
-        return $this->line(sprintf("<fg=red>%s error</> $text", $this->icon("error")));
+        return $this->line(
+            sprintf("<fg=red>%s error</> $text", $this->icon("error"))
+        );
     }
 
     /**
