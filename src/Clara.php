@@ -10,74 +10,77 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Clara
 {
-    /**
-     * @var string[]
-     */
-    private static $mutedAppsList = [];
+    /** @var string[] */
+    private static array $mutedAppsList = [];
 
-    /**
-     * @var bool
-     */
-    private static $isMutedGlobally = false;
+    private static bool $isMutedGlobally = false;
 
-    /**
-     * @var array
-     */
-    private static $capturedOutput = [];
+    /** @var string[] */
+    private static array $capturedOutput = [];
 
-    /**
-     * @var array
-     */
-    private static $globalMuteExceptions = [];
+    /** @var string[] */
+    private static array $globalMuteExceptions = [];
 
-    /**
-     * @var string[]
-     */
-    private static $appsBeingCaptured = [];
+    /** @var string[] */
+    private static array $appsBeingCaptured = [];
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var OutputInterface
-     */
-    protected $outputInterface;
-    
-    /**
-     * @var bool
-     */
-    protected $showDebugOutput = true;
+    protected OutputInterface $outputInterface;
 
-    public function __construct(string $name)
+    protected bool $showDebugOutput = true;
+
+    /** Can be either "icons" or "labels" */
+    protected string $mode;
+
+    /** @var string[] */
+    protected array $colours;
+
+    protected static array $defaultColours = [
+        'info' => 'white',
+        'success' => 'green',
+        'warn' => 'yellow',
+        'error' => 'red',
+        'debug' => 'magenta',
+    ];
+
+    protected array $icons = [
+        'info' => 'ⓘ',
+        'success' => '✔',
+        'warn' => '⚠',
+        'error' => '✖',
+        'debug' => '⚒',
+    ];
+
+    public function __construct(string $name, string $mode = 'labels', array $colours = [])
     {
         $this->name = $name;
+        $this->mode = $mode;
+        $this->colours = empty($colours) ? static::$defaultColours : $colours;
         $this->outputInterface = new ConsoleOutput;
     }
     
-    public function useOutput(OutputInterface $outputInterface)
+    public function useOutput(OutputInterface $outputInterface): Clara
     {
         $this->outputInterface = $outputInterface;
         return $this;
     }
 
-    public function showDebugOutput($show = true)
+    public function showDebugOutput(bool $show = true): self
     {
         $this->showDebugOutput = $show;
         return $this;
     }
 
-    public function hideDebugOutput()
+    public function hideDebugOutput(): self
     {
         $this->showDebugOutput = false;
         return $this;
     }
 
-    public static function app(string $name, $showDebugOutput = false)
+    public static function app(string $name): self
     {
-        $output = new static($name);
-        return $showDebugOutput ? $output->showDebugOutput() : $output->hideDebugOutput();
+        return new static($name);
     }
 
     public function success($text)
