@@ -4,11 +4,24 @@
 
 Simple, pretty, testable console output for PHP CLI apps. Used in [Scribe](http://scribe.knuckles.wtf).
 
+Features:
+- Colours and emoji to distinguish between log types
+- Two different output modes, depending on how much colour you want
+- Automatically hide/show debug output
+- Can capture console output for easy testing—no need for mocks
+- Customizable colour palette
+
 <p align="center">
 
+<figure>
 <img alt="Icons mode" src="./screenshot-icons.png">
+<figcaption>Icons mode</figcaption>
+</figure>
 
+<figure>
 <img alt="Labels mode" src="./screenshot-labels.png" >
+<figcaption>Labels mode</figcaption>
+</figure>
 
 </p>
 
@@ -31,18 +44,36 @@ $output->error("Something went wrong!");
 $output->success("Done. Go and be awesome.");
 ```
 
+### Picking a mode
 By default, Clara uses "icons" mode—the output is coloured differently by output type and an emoji is added (as in the first screenshot above).
 
 If you prefer, you can switch to "labels" mode:
 
 ```php
-$output = clara('myappname' Clara::MODE_LABELS);
+$output = clara('myappname' \Shalvah\Clara::MODE_LABELS);
+// The default
+$output = clara('myappname' \Shalvah\Clara::MODE_ICONS);
 ```
 
 In labels mode, (the second screenshot above), the emojis are still present, but the output types are written out, and the main output message is not coloured.
 
-
+### Disabling colours and emojis
 If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `->line()` method instead.
+
+### Disabling colours and emojis
+If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `->line()` method instead.
+
+### Customising the colour palette
+You can also customise the colours Clara uses for each type, by passing in an array as the third argument, containing your preferred colours:
+
+```php
+$output = clara('myappname' \Shalvah\Clara::MODE_ICONS, [
+  'info' => 'blue',
+]);
+```
+
+See [the Symfony docs](https://symfony.com/doc/current/console/coloring.html) for details about supported colours.
+
 
 ## Toggling debug output
 It's common practice to include a verbose flag (`--verbose`) in your CLI app that lets you show additional (debug) output to the user. With Clara, you can easily enable or disable debug logging: 

@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * See https://symfony.com/doc/current/console/coloring.html
+ * @see https://symfony.com/doc/current/console/coloring.html
  */
 class Clara
 {
