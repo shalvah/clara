@@ -4,7 +4,9 @@ require 'vendor/autoload.php';
 
 use Shalvah\Clara\Clara;
 
-Clara::app('app1')->info("Installing package");
+$output = Clara::app('app1');
+
+$output->info("Installing package");
 Clara::app('app1')->debug("Attempt 3 of 5");
 Clara::app('app1')->warn("The file does not exist.");
 Clara::app('app1')->error("Something went wrong!");

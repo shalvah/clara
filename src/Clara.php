@@ -37,7 +37,7 @@ class Clara
     protected array $colours;
 
     protected static array $defaultColours = [
-        'info' => 'white',
+        'info' => 'cyan',
         'success' => 'green',
         'warn' => 'yellow',
         'error' => 'red',
@@ -86,14 +86,14 @@ class Clara
     public function success($text)
     {
         return $this->line(
-            sprintf("%s success <info>$text </info>", $this->icon('success'))
+            sprintf("<fg=%s>%s success</> $text", $this->colour('success'), $this->icon('success'))
         );
     }
 
     public function info($text)
     {
         return $this->line(
-            sprintf("<info>%s info</info> {$text}", $this->icon('info'))
+            sprintf("<fg=%s>%s info</> $text", $this->colour('info'), $this->icon('info'))
         );
     }
 
@@ -101,7 +101,7 @@ class Clara
     {
         return $this->showDebugOutput
             ? $this->line(
-                sprintf("<fg=blue>%s debug</> $text", $this->icon("debug"))
+                sprintf("<fg=%s>%s debug</> $text", $this->colour("debug"), $this->icon("debug"))
             )
             : '';
     }
@@ -109,14 +109,14 @@ class Clara
     public function warn($text)
     {
         return $this->line(
-            sprintf("<fg=yellow>%s warning</> $text", $this->icon("warn"))
+            sprintf("<fg=%s>%s warning</> $text", $this->colour("warn"), $this->icon("warn"))
         );
     }
 
     public function error($text)
     {
         return $this->line(
-            sprintf("<fg=red>%s error</> $text", $this->icon("error"))
+            sprintf("<fg=%s>%s error</> $text", $this->colour("error"), $this->icon("error"))
         );
     }
 
@@ -226,9 +226,14 @@ class Clara
         static::$capturedOutput = [];
     }
 
-    protected function icon($type)
+    protected function icon($type): string
     {
         return static::$icons[$type];
+    }
+
+    protected function colour($type): string
+    {
+        return $this->colours[$type] ?? static::$defaultColours[$type];
     }
 
 }
