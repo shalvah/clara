@@ -2,24 +2,25 @@
 [![image](http://img.shields.io/packagist/v/shalvah/clara.svg?style=flat)](https://packagist.org/packages/shalvah/clara) [![Total Downloads](https://poser.pugx.org/shalvah/clara/downloads)](https://packagist.org/packages/shalvah/clara) [![Build Status](https://travis-ci.com/shalvah/clara.svg?branch=master)](https://travis-ci.com/shalvah/clara)
 
 
-Simple, pretty, testable console output for PHP CLI apps.
+Simple, pretty, testable console output for PHP CLI apps. Used in [Scribe](http://scribe.knuckles.wtf).
 
 <p align="center">
 
-<img alt="Output on macOS" src="./screenshot-mac.png">
+<img alt="Icons mode" src="./screenshot-icons.png">
 
-<img alt="Output on Windows Terminal" src="./screenshot-windows-teminal.png" >
+<img alt="Labels mode" src="./screenshot-labels.png" >
 
 </p>
 
 ## Installation
-(PHP 7.2+)
+(PHP 7.4+)
 
 ```bash
 composer require shalvah/clara
 ```
 
 ## Using Clara
+
 ```php
 $output = clara('myappname');
 
@@ -30,30 +31,39 @@ $output->error("Something went wrong!");
 $output->success("Done. Go and be awesome.");
 ```
 
-The output will be coloured and presented as in the screenshot shown above.
+By default, Clara uses "icons" mode—the output is coloured differently by output type and an emoji is added (as in the first screenshot above).
 
-If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `$output->line()` method instead.
-
-## Toggling debug output
-It's conventional to include a verbose flag (`-v`) in your CLI app that lets you show additional (debug) output to the user. You could then check for the value of the flag in an if-statement before outputting any debug logs. Clara makes this easier by letting you choose whether debug logs are on or not:
+If you prefer, you can switch to "labels" mode:
 
 ```php
-$isVerbose = $this->getFlag('v');
+$output = clara('myappname' Clara::MODE_LABELS);
+```
 
-// If $isVerbose is true,// 
+In labels mode, (the second screenshot above), the emojis are still present, but the output types are written out, and the main output message is not coloured.
+
+
+If you'd like to output a line of text without the extra formatting provided by the functions above, you can use the `->line()` method instead.
+
+## Toggling debug output
+It's common practice to include a verbose flag (`--verbose`) in your CLI app that lets you show additional (debug) output to the user. With Clara, you can easily enable or disable debug logging: 
+
+```php
+$isVerbose = $this->getFlag('verbose');
+
+// If $isVerbose is true,
 // Clara won't print or capture any debug logs
-$app1 = clara('app1', $isVerbose); 
+$app1 = clara('app1')->showDebugOutput($isVerbose); 
 $app1->debug("App 1 - Output 1");
 
-// You can also toggle debug output manually at any time
-$app1->showDebugOutput();
+// You can also toggle debug output manually
+$app1->hideDebugOutput();
 $app1->debug("App 1 - Output 2");
 
-$app1->hideDebugOutput();
+$app1->showDebugOutput();
 $app1->debug("App 1 - Output 3");
 ```
 
-Note that by default (if you do not pass a second parameter to `clara()` or call the toggle methods), Clara will show all output.
+Note that by default, Clara will show all output.
 
 ## Muting output
 Sometimes when running your app's tests, you don't want to clutter your console with the output messages. You can turn off Clara's output by using the `mute()` and `unmute` static methods. To mute or unmute a specific app, pass in the app name.
@@ -62,7 +72,8 @@ Sometimes when running your app's tests, you don't want to clutter your console 
 $output1 = clara('myapp1');
 $output2 = clara('myapp2');
 
-Clara::mute('myapp1'); // Mute only output from "myapp1"
+// Mute only output from "myapp1"
+Clara::mute('myapp1');
 // Won't be printed.
 $output1->info("Installing package");
 
@@ -75,7 +86,7 @@ Clara::unmute(); // Unmute all apps
 ```
 
 ## Showing only your app's output. 
-Imagine your app includes another app that uses Clara. By default, the output from all apps would be shown. You can turn off output for all apps but yours by calling `->only()`.
+Imagine your app includes another app that uses Clara. By default, the output from all apps will be shown. You can turn off output for all apps but yours by calling `->only()`.
 
 ```php
 // SHow only output from mymainapp
@@ -97,8 +108,8 @@ $output1->error("Failed");
 
 $capturedOutput = Clara::getCapturedOutput('myapp1');
 // $capturedOutput = [
-//   "<fg=yellow>🚸 warning</> Going to fail",
-//   "<fg=red>🚫 error</> Failed",
+//   "⚠ <fg=yellow>Going to fail</>",
+//   "✖ <fg=red>Failed</>",
 // ]
 
 Clara::stopCapturingOutput('myapp1');
@@ -112,12 +123,8 @@ By default, Clara outputs to the console, but you can actually output to somewhe
 
 ```php
 
-$this->clara = clara('myapp', $shouldBeVerbose)
+$this->clara = clara('myapp'
+  ->showDebugOutput($this->option('verbose'))
   ->useOutput($this->output)
   ->only();
 ```
- 
-## Note on emoji support
-Some environments (example: Windows console) don't have proper support for Unicode, so emojis may not display properly.
-
-![Output on Windows Cmder](./screenshot-cmder.png)
