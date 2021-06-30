@@ -51,9 +51,9 @@ $output->success("Done. Go and be awesome.");
 By default, Clara uses "icons" mode—the output is coloured differently by output type and an emoji is added (as in the first screenshot above). If you prefer, you can switch to "labels" mode:
 
 ```php
-$output = clara('myappname' \Shalvah\Clara::MODE_LABELS);
+$output = clara('myappname', \Shalvah\Clara::MODE_LABELS);
 // The default
-$output = clara('myappname' \Shalvah\Clara::MODE_ICONS);
+$output = clara('myappname', \Shalvah\Clara::MODE_ICONS);
 ```
 
 In labels mode, (the second screenshot above), the emojis are still present, but the output types are written out, and the main output message is not coloured.
