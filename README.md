@@ -1,8 +1,7 @@
-# clara 🔊
+# Clara 🔊
 [![image](http://img.shields.io/packagist/v/shalvah/clara.svg?style=flat)](https://packagist.org/packages/shalvah/clara) [![Total Downloads](https://poser.pugx.org/shalvah/clara/downloads)](https://packagist.org/packages/shalvah/clara) [![Build Status](https://travis-ci.com/shalvah/clara.svg?branch=master)](https://travis-ci.com/shalvah/clara)
 
-
-Simple, pretty, testable console output for PHP CLI apps. Used in [Scribe](http://scribe.knuckles.wtf).
+Simple, pretty, testable console output for PHP CLI apps. (Used in [Scribe](http://scribe.knuckles.wtf/laravel).)
 
 Features:
 - Colours and emoji to distinguish between log types
@@ -11,14 +10,14 @@ Features:
 - Can capture console output for easy testing—no need for mocks
 - Customizable colour palette
 
-<p align="center">
-
-<figure>
+<figure align="center">
 <img alt="Icons mode" src="./screenshot-icons.png">
 <figcaption>Icons mode</figcaption>
 </figure>
 
-<figure>
+<br>
+
+<figure align="center">
 <img alt="Labels mode" src="./screenshot-labels.png" >
 <figcaption>Labels mode</figcaption>
 </figure>
