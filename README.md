@@ -13,14 +13,20 @@ Features:
 <p align="center">
 
 <img alt="Icons mode" src="./screenshot-icons.png">
-
-<em>Icons mode</em>
-
-<img alt="Labels mode" src="./screenshot-labels.png" >
-
-<em>Labels mode</em>
-
 </p>
+
+<p align="center">
+<em>Icons mode</em>
+</p>
+
+<p align="center">
+<img alt="Labels mode" src="./screenshot-labels.png" >
+</p>
+
+<p align="center">
+<em>Labels mode</em>
+</p>
+
 
 ## Installation
 (PHP 7.4+)
