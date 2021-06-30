@@ -183,7 +183,7 @@ class ClaraTest extends TestCase
         $app1->debug("App 1 - Output 3");
 
         $handle->writeln->twice()->called();
-        $handle->writeln->firstCall()->calledWith("<fg=blue>🐛 debug</> App 1 - Output 1");
-        $handle->writeln->lastCall()->calledWith("<fg=blue>🐛 debug</> App 1 - Output 3");
+        $this->assertStringContainsString("App 1 - Output 1", $handle->writeln->firstCall()->argument());
+        $this->assertStringContainsString("App 1 - Output 3", $handle->writeln->lastCall()->argument());
     }
 }
