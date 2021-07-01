@@ -256,7 +256,7 @@ class Clara
 
     protected function formatWithLabel($text, string $type): string
     {
-        return sprintf("<fg=%s>%s success</> $text", $this->colour($type), $this->icon($type));
+        return sprintf("<fg=%s>%s $type</> $text", $this->colour($type), $this->icon($type));
     }
 
 }
