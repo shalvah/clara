@@ -13,6 +13,32 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Removed
 
+## 3.0.2 - Thursday, 1 July 2021 ([compare to previous](https://github.com/shalvah/clara/compare/3.0.1...3.0.2**))
+### Fixed
+- Use correct `$type` in labels mode ([75a8f98172678cb74ff92f7cf89ef3d20534e329](https://github.com/shalvah/clara/commit/75a8f98172678cb74ff92f7cf89ef3d20534e329))
+
+## 3.0.1 - Wednesday, 30 June 2021 ([compare to previous](https://github.com/shalvah/clara/compare/3.0.0...3.0.1))
+### Fixed
+- Properly import Clara constant ([5e3d5218a773465c4eed14f173c2b4cb47fe84fc](https://github.com/shalvah/clara/commit/5e3d5218a773465c4eed14f173c2b4cb47fe84fc))
+
+## 3.0.0 - Wednesday, 30 June 2021 ([compare to previous](https://github.com/shalvah/clara/compare/2.6.0...3.0.0))
+
+### New features:
+- Added icons and labels mode
+- Made colours customisable
+
+### Breaking change:
+- The helper/constructor arguments have changed; if you were using the second parameter to show/hide debug, you'll now have to call `showDebugOutput()` instead.
+
+  Before:
+  ```php
+  clara('myappname', $isVerbose);
+  ```
+  After:
+  ```php
+  clara('myappname')->showDebugOutput($isVerbose);
+  ```
+
 ## 2.6.0 - Sunday, 12 April 2020 ([compare to previous](https://github.com/shalvah/clara/compare/2.5.0...2.6.0))
 ### Added
 - Allow setting output interface (https://github.com/shalvah/clara/commit/6571043fdf3a9029358bab4029fd32c66a6d791c)
