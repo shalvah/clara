@@ -150,7 +150,7 @@ class Clara
         return $text;
     }
 
-    public static function mute(string $app = null)
+    public static function mute(?string $app = null)
     {
         if (empty($app)) {
             // Mute all apps
@@ -163,7 +163,7 @@ class Clara
         }
     }
 
-    public static function unmute(string $app = null)
+    public static function unmute(?string $app = null)
     {
         if (empty($app)) {
             // Unmute all apps
